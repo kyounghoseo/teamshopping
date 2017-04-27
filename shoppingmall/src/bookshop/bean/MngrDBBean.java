@@ -14,29 +14,26 @@ import javax.sql.DataSource;
 import work.crypt.BCrypt;
 import work.crypt.SHA256;
 
-public class MngrDBBean {//������ ����, ��ǰ����, ���Ű��� �κп��� ����ϴ� DBó����
-	// MngrDBBean ���� ��ü ���� <- �� ���� ��ü�� �����ؼ� ����
+public class MngrDBBean {//관리자 인증, 상품관리, 구매관리 부분에서 사용하는 DB
+	// MngrDBBean 전역 객체 생성<- 한 개의 객체만 생성해서 공유
 	private static MngrDBBean instance = new MngrDBBean();
 
-	// MngrDBBean ��ü�� �����ϴ� �޼ҵ�
+	// MngrDBBean 객체를 리턴하는 메소드
 	public static MngrDBBean getInstance() {
 		return instance;
-
 	}
 
-	private MngrDBBean() {
-	}
+	private MngrDBBean() {}
 
-	// Ŀ�ؼ� Ǯ���� Ŀ�ؼ� ��ü�� ���� �޼ҵ�
+	// 커넥션 풀에서 커넥션 객체를 얻어내는 메소드
 	private Connection getConnection() throws Exception {
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
-		DataSource ds = (DataSource) envCtx.lookup("jdbc/jsptest");
+		DataSource ds = (DataSource)envCtx.lookup("jdbc/jsptest");
 		return ds.getConnection();
+	}// getConnection끝
 
-	}// getConnection��
-
-	// ������ ���� �޼ҵ�
+	// 관리자 인증 메소드
 	public int userCheck(String id, String passwd) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -50,18 +47,19 @@ public class MngrDBBean {//������ ����, ��ǰ����
 			String orgPass = passwd;
 			String shaPass = sha.getSha256(orgPass.getBytes());
 
-			pstmt = conn.prepareStatement("select managerPasswd from manager where managerId =?");
+			pstmt = conn.prepareStatement(
+			"select managerPasswd from manager where managerId = ?");
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {//�ش� ���̵� ������ ����
+			if (rs.next()) {// 해당 아이디가 있으면 수행
 				String dbpasswd = rs.getString("managerPasswd");
-				if (BCrypt.checkpw(shaPass, dbpasswd))
-					x = 1; // ��������
+				if(BCrypt.checkpw(shaPass, dbpasswd))
+					x = 1; // 인증 성공
 				else
-					x = 0; // ��й�ȣ Ʋ��
-			} else // �ش� ���̵� ������ ����
-				x = -1; // ���̵� ����
+					x = 0; // 비밀번호 틀림
+			} else // 해당 아이디 없으면 수행
+				x = -1; // 아이디 없음
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -84,30 +82,31 @@ public class MngrDBBean {//������ ����, ��ǰ����
 		}
 		return x;
 
-	}// userCheck ��
+	}// userCheck 끝
 
-	// å ��� �޼ҵ�
-	public void insertBook(MngrDataBean book) throws Exception {
+	// 책 등록 메소드
+	public void insertBook(MngrDataBean book) 
+	throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			conn = getConnection();
-			String sql = "insert into book(book_kind,book_title,book_price,";
+			String sql = "insert into book(book_id,book_kind,book_title,book_price,";
 			sql += "book_count,author,publishing_com,publishing_date,book_image,";
-			sql += "book_content,discount_rate,reg_date) values (?,?,?,?,?,?,?,?,?,?,?)";
+			sql += "book_content,discount_rate,reg_date) values (book_id_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, book.getBook_kind());
 			pstmt.setString(2, book.getBook_title());
 			pstmt.setInt(3, book.getBook_price());
-			pstmt.setShort(4, book.getBook_count());
+			pstmt.setInt(4, book.getBook_count());
 			pstmt.setString(5, book.getAuthor());
 			pstmt.setString(6, book.getPublishing_com());
 			pstmt.setString(7, book.getPublishing_date());
 			pstmt.setString(8, book.getBook_image());
 			pstmt.setString(9, book.getBook_content());
-			pstmt.setByte(10, book.getDiscount_rate());
+			pstmt.setInt(10, book.getDiscount_rate());
 			pstmt.setTimestamp(11, book.getReg_date());
 
 			pstmt.executeUpdate();
@@ -116,20 +115,16 @@ public class MngrDBBean {//������ ����, ��ǰ����
 			ex.printStackTrace();
 		} finally {
 			if (pstmt != null)
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
+				try { pstmt.close();} catch(SQLException ex) {}
 			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-				}
+				try {conn.close();} catch(SQLException ex) {}
 		}
 	}
 
-	//�̹� ��ϵ� å�� ����
-	public int registedBookconfirm(String kind, String bookName, String author) throws Exception {
+	//이미 등록된 책을 검증
+	public int registedBookconfirm(
+			String kind, String booktitle, String author) 
+	throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -138,20 +133,20 @@ public class MngrDBBean {//������ ����, ��ǰ����
 		try {
 			conn = getConnection();
 
-			String sql = "select book_name from book";
-			sql += "where book_kind =? and book_name =? and author =?";
+			String sql = "select book_title from book";
+			sql += "where book_kind =? and book_title =? and author =?";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, kind);
-			pstmt.setString(2, bookName);
+			pstmt.setString(2, booktitle);
 			pstmt.setString(3, author);
 
 			rs = pstmt.executeQuery();
 
 			if (rs.next())
-				x = 1; // �ش� å�� �̹� ��ϵǾ� ����
+				x = 1; // 해당 책이 이미 등록되어 있음
 			else
-				x = -1; // �ش� å�� �̹� ��ϵǾ� ���� ����
+				x = -1; // 해당 책이 이미 등록되어 있지 않음
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -159,24 +154,23 @@ public class MngrDBBean {//������ ����, ��ǰ����
 			if (rs != null)
 				try {
 					rs.close();
-				} catch (SQLException ex) {
-				}
+				} catch (SQLException ex) {}
 			if (pstmt != null)
 				try {
 					pstmt.close();
-				} catch (SQLException ex) {
-				}
+				} catch (SQLException ex) {}
+			
 			if (conn != null)
 				try {
 					conn.close();
-				} catch (SQLException ex) {
-				}
+				} catch (SQLException ex) {}
 		}
 		return x;
-	}// registedBookconfirm��
+	}// registedBookconfirm끝
 
-	// ��ü ��ϵ� å�� ���� ���� �޼ҵ�
-	public int getBookCount() throws Exception {
+	// 전체 등록된 책의 수를 얻어내는 메소드
+	public int getBookCount() 
+	throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -185,7 +179,7 @@ public class MngrDBBean {//������ ����, ��ǰ����
 
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select count(*)from book");
+			pstmt = conn.prepareStatement("select count(*) from book");
 			rs = pstmt.executeQuery();
 
 			if (rs.next())
@@ -211,10 +205,11 @@ public class MngrDBBean {//������ ����, ��ǰ����
 				}
 		}
 		return x;
-	}//��ü ��ϵ� å�� ���� ���� �޼ҵ� ��
+	}// 전체 등록된 책의 수를 얻어내는 메소드 끝
 
-	// �ش� �з��� å�� ���� ���� �޼ҵ�
-	public int getBookCount(String book_kind) throws Exception {
+	// 해당 분류의 책의 수를 얻어내는 메소드
+	public int getBookCount(String book_kind) 
+	throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -374,12 +369,10 @@ public class MngrDBBean {//������ ����, ��ǰ����
 			conn = getConnection();
 
 			String sql = "select * from book where book_kind = ?";
-			sql += "order by reg_date desc limit ?,?";
+			sql += "order by reg_date desc";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, book_kind);
-			pstmt.setInt(2, 0);
-			pstmt.setInt(3, count);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -501,13 +494,13 @@ public class MngrDBBean {//������ ����, ��ǰ����
 			pstmt.setString(1, book.getBook_kind());
 			pstmt.setString(2, book.getBook_title());
 			pstmt.setInt(3, book.getBook_price());
-			pstmt.setShort(4, book.getBook_count());
+			pstmt.setInt(4, book.getBook_count());
 			pstmt.setString(5, book.getAuthor());
 			pstmt.setString(6, book.getPublishing_com());
 			pstmt.setString(7, book.getPublishing_date());
 			pstmt.setString(8, book.getBook_image());
 			pstmt.setString(9, book.getBook_content());
-			pstmt.setByte(10, book.getDiscount_rate());
+			pstmt.setInt(10, book.getDiscount_rate());
 			pstmt.setInt(11, bookId);
 
 			pstmt.executeUpdate();
