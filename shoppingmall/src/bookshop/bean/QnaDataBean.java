@@ -2,90 +2,73 @@ package bookshop.bean;
 
 import java.sql.Timestamp;
 
-public class QnaDataBean {//»óÇ° Q&A °ü¸® ºÎºĞ¿¡¼­ »ç¿ëÇÏ´Â µ¥ÀÌÅÍ ÀúÀåºó ÀÛ¼º
+public class QnaDataBean {//ìƒí’ˆ Q&A ê´€ë¦¬ ë¶€ë¶„ì—ì„œ ì‚¬ìš©í•˜ëŠ” ë°ì´í„° ì €ì¥ë¹ˆ
 
-	//ÇÊµå¼±¾ğ
-	private int qna_id; // qna ±Û¹øÈ£
-	private int book_id; // Ã¥ÀÇ µî·Ï¹øÈ£
-	private String book_title; // Ã¥ ÀÌ¸§
-	private String qna_writer; // qna ÀÛ¼ºÀÚ
-	private String qna_content; // qna ³»¿ë
-	private int group_id; // qna ±×·ì
-	private byte qora; // qna ±×·ì ³»ÀÇ ¼ø¼­
-	private byte reply; // ´äº¯ ¿©ºÎ
-	private Timestamp reg_date; // qna ÀÛ¼ºÀÏ
-
-	// Á¢±ÙÀÚget, ¼³Á¤ÀÚset
+	//í•„ë“œì„ ì–¸
+	private int qna_id; // qna ê¸€ë²ˆí˜¸
+	private int book_id; // ì±…ì˜ ë“±ë¡ ë²ˆí˜¸
+	private String book_title; // ì±… ì´ë¦„
+	private String qna_writer; // qna ì‘ì„±ì
+	private String qna_content; // qna ë‚´ìš©
+	private int group_id; // qna ê·¸ë£¹
+	private int qora; // qna ê·¸ë£¹ ë‚´ì˜ ìˆœì„œ
+	private int reply; // ë‹µë³€ ì—¬ë¶€
+	private Timestamp reg_date; // qna ì‘ì„±ì¼
+	
+	// ì ‘ê·¼ìget, ì„¤ì •ìset
 	public int getQna_id() {
 		return qna_id;
 	}
-
 	public void setQna_id(int qna_id) {
 		this.qna_id = qna_id;
 	}
-
 	public int getBook_id() {
 		return book_id;
 	}
-
 	public void setBook_id(int book_id) {
 		this.book_id = book_id;
 	}
-
 	public String getBook_title() {
 		return book_title;
 	}
-
 	public void setBook_title(String book_title) {
 		this.book_title = book_title;
 	}
-
 	public String getQna_writer() {
 		return qna_writer;
 	}
-
 	public void setQna_writer(String qna_writer) {
 		this.qna_writer = qna_writer;
 	}
-
 	public String getQna_content() {
 		return qna_content;
 	}
-
 	public void setQna_content(String qna_content) {
 		this.qna_content = qna_content;
 	}
-
 	public int getGroup_id() {
 		return group_id;
 	}
-
 	public void setGroup_id(int group_id) {
 		this.group_id = group_id;
 	}
-
-	public byte getQora() {
+	public int getQora() {
 		return qora;
 	}
-
-	public void setQora(byte qora) {
+	public void setQora(int qora) {
 		this.qora = qora;
 	}
-
-	public byte getReply() {
+	public int getReply() {
 		return reply;
 	}
-
-	public void setReply(byte reply) {
+	public void setReply(int reply) {
 		this.reply = reply;
 	}
-
 	public Timestamp getReg_date() {
 		return reg_date;
 	}
-
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
 
-}// class ³¡
+}// class ë
