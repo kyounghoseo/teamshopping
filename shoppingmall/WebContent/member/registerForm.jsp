@@ -1,15 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+
 <link rel="stylesheet" href="/shoppingmall/css/style.css"/>
 <script src="/shoppingmall/js/jquery-1.11.0.min.js"></script>
 <script src="/shoppingmall/member/register.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 <div id="regForm" class="box">
 <ul>
 <!-- 아이디 입력란 -->
@@ -42,5 +38,3 @@
 <button id="cancle">취소</button>
 </ul>
 </div>
-</body>
-</html>
