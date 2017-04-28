@@ -18,10 +18,10 @@
 		</div>
 		<div id="auth" class="box">
 			<c:if test="${type == 0}">
-				<jsp:include page="mngr/logon/mLoginFrom.jsp" />
+				<jsp:include page="mngr/logon/mLoginForm.jsp" />
 			</c:if>
 			<c:if test="${type == 1}">
-				<jsp:include page="member/loginForm.jsp" />
+				<jsp:include page="member/LoginForm.jsp" />
 			</c:if>
 		</div>
 	</div>
