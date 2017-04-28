@@ -38,13 +38,13 @@ $(document).ready(function(){
 				url:"/shoppingmall/registerPro.do",
 				data:query,
 				success:function(data){
-					window.location.href("/shoppingmall/index.do");
+					window.location.href="/shoppingmall/index.do";
 				}
 			});
 		})
 		
 		////취소 버튼 눌렀을때
 		$("#cancle").click(function(){
-			window.location.href("/shoppingmall/index.do");
+			window.location.href="/shoppingmall/index.do";
 		});
 });		

@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 	$("#uRes").click(function() {
-		window.location.href("/shoppingmall/registerForm.do");
+		window.location.href="/shoppingmall/registerForm.do";
 	});
 
 	// 로그인 버튼 눌렀을때
@@ -21,7 +21,7 @@ $(document).ready(function() {
 				var len = str1.length;
 				var check = data.substr(loc + len, 1);
 				if (check == "1") {
-					window.location.href("/shoppingmall/index.do");
+					window.location.href="/shoppingmall/index.do";
 				} else if (check == "0") {
 					alert("비밀번호 틀림");
 					$("#cpasswd").val("");
@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 	// 회원정보 변경 버튼 눌렀을 때
 	$("#uUpdate").click(function() {
-		window.location.href("/shoppingmall/modify.do");
+		window.location.href="/shoppingmall/modify.do";
 	});
 
 	// 로그아웃 버튼 눌렀을 때
@@ -45,18 +45,18 @@ $(document).ready(function() {
 			type : "POST",
 			url : "/shoppingmall/logout.do",
 			success : function(data) {
-				window.location.href("/shoppingmall/index.do");
+				window.location.href="/shoppingmall/index.do";
 			}
 		});
 	});
 
 	//장바구니 버튼 눌렀을 때
 	$("#cart").click(function(){
-		window.location.href("/shoppingmall/cartList.do");
+		window.location.href="/shoppingmall/cartList.do";
 	});
 	
 	//구매내역 버튼 눌렀을 때
 	$("#buy").click(function(){
-		window.location.href("/shoppingmall/buyList.do");
+		window.location.href="/shoppingmall/buyList.do";
 	});
 });
