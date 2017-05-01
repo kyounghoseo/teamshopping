@@ -4,13 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <link rel="stylesheet" href="/shoppingmall/css/style.css" />
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 	<div id="header">
 		<div id="logo" class="box">
 			<img class="noborder" id="logo"
@@ -21,12 +15,10 @@
 				<jsp:include page="mngr/logon/mLoginForm.jsp" />
 			</c:if>
 			<c:if test="${type == 1}">
-				<jsp:include page="member/LoginForm.jsp" />
+				<jsp:include page="member/loginForm.jsp" />
 			</c:if>
 		</div>
 	</div>
 	<div id="content" class="box2">
-	<jsp:include page="${cont}"/>
+	<jsp:include page="${cont}" />
 	</div>
-</body>
-</html>

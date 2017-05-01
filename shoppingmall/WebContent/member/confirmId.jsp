@@ -4,7 +4,7 @@
 
 
 <link rel = "stylesheet" href="/shoppingmall/css/style.css"/>
-<script src="/shoppingmall/js/jquery-1.11.0.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <p id="ck">${check}
 

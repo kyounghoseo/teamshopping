@@ -1,16 +1,16 @@
 
 $(document).ready(function() {
 	$("#uRes").click(function() {
-		window.location.href="/shoppingmall/registerForm.do";
+		window.location.href ="/shoppingmall/registerForm.do";
 	});
 
 	// 로그인 버튼 눌렀을때
 	$("#uLogin").click(function() {
 		var query = {
-			id : ("#cid").val(),
+			id : $("#cid").val(),
 			passwd : $("#cpasswd").val()
 		};
-
+		
 		$.ajax({
 			type : "POST",
 			url : "/shoppingmall/loginPro.do",

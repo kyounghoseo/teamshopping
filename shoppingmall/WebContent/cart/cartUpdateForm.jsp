@@ -8,6 +8,9 @@
 </c:if>
 
 
+
+
+
 <div id="cartUpdate">
 	<form id="cartUpdateForm" method="post"
 		action="/shoppingmall/cartUpdatePro.do">

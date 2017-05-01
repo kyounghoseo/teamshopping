@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <link rel="stylesheet" href="/shoppingmall/css/style.css" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="/shoppingmall/mngr/managermain.js"></script>
+<script src="/shoppingmall/mngr/managerMain.js"></script>
 
 <c:if test="${empty sessionScope.id}">
 	<div id="mList">

@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link rel="stylesheet" href="/shoppingmall/css/style.css" />
-<script src="/shoppingmall/js/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="/shoppingmall/member/login.js"></script>
 
 <c:if test="${empty sessionScope.id}">

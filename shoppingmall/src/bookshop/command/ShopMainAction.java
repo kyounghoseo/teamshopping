@@ -13,25 +13,30 @@ import bookshop.process.CommandAction;
 public class ShopMainAction implements CommandAction {
 
 	@Override
-	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-
+	public String requestPro(HttpServletRequest request, HttpServletResponse response) {
+		try{
+		System.out.println("shopmainaction 으로 ?");
 		MngrDataBean bookList[] = null;
 		List<MngrDataBean[]> bookLists = new ArrayList<MngrDataBean[]>();
 
 		MngrDBBean bookProcess = MngrDBBean.getInstance();// DB연동
-
 		// 카테고리별 최신의 상품 3개씩 얻어내서 List에 저장
 		for (int i = 1; i <= 3; i++) {
 			bookList = bookProcess.getBooks(i + "00", 3);
 			bookLists.add(bookList);
 		}
+		
 		// 해당 페이지로 보낼 내용 설정
 		request.setAttribute("bookLists", bookLists);
 
 		// 사용자 화면을 의미하는 값을 설정
 		request.setAttribute("type", new Integer(1));
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		return "/shop/shopMain.jsp"; // shopMain페이지
-
+		
 	}
 
 }

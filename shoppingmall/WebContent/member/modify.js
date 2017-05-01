@@ -10,13 +10,15 @@ $(document).ready(function(){
 			
 			$.ajax({
 				type:"post",
+				url: "/shoppingmall/modifyPro.do",
 				data: query,
 				success: function(data){
 					var str1='<p id="ck">';
 					var loc = data.indexOf(str1);
 					var len = str1.length;
 					var check = data.substr(loc+len,1);
-					if(check="1"){
+					console.log(check);
+					if(check=="1"){
 						alert("회원정보가 수정되었어요");
 						window.location.href = "/shoppingmall/modify.do";
 					}else{

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="/shoppingmall/css/style.css"/>
-<script src="/shoppingmall/js/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="/shoppingmall/member/modify.js"></script>
 
 <c:if test="${empty sessionScope.id}">
@@ -25,11 +25,11 @@
 
 <!-- 이름 -->
 <li><label for="name">이름</label>
-<input id="name" name="name" type="text" size="20" maxlength="10" value="${m.getName}">
+<input id="name" name="name" type="text" size="20" maxlength="10" value="${m.getName()}">
 
 <!-- 주소 -->
 <li><label for="address">주소</label>
-<input id="address" name="address" type="text" size="30" maxlength="50" value="${m.getAddress}">
+<input id="address" name="address" type="text" size="30" maxlength="50" value="${m.getAddress()}">
 
 <!-- 전화번호 -->
 <li><label for="tel">전화번호</label>

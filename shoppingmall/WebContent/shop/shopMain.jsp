@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet" href="/shoppingmall/css/style.css" />
-<script src="../js/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <div id="cata" class="box2">
@@ -35,7 +35,7 @@
 			<table class="vhcenter">
 				<tr height="30">
 					<td rowspan="4" width="100"><a
-						href="/shoppingmall/bookContent.do?book_id=${book.getBookid()}&book_kind=${book.getBook_kind()}">
+						href="/shoppingmall/bookContent.do?book_id=${book.getBook_id()}&book_kind=${book.getBook_kind()}">
 							<img src="/shoppingmall/bookImage/${book.getBook_image()}"
 							class="listimage">
 					</a></td>
@@ -57,7 +57,7 @@
 				</tr>
 				<tr height="30">
 					<td width="350"><c:set var="price"
-							value="${book.getBokk_price()}" /> <c:set var="rate"
+							value="${book.getBook_price()}" /> <c:set var="rate"
 							value="${book.getDiscount_rate()}" /> 정가 : <fmt:formatNumber
 							value="${price}" type="number" pattern="#,##0" />원<br> <strong
 						class="bred">판매가:<fmt:formatNumber

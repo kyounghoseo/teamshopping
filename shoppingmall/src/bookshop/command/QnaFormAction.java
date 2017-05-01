@@ -9,24 +9,31 @@ import bookshop.process.CommandAction;
 public class QnaFormAction implements CommandAction{
 
 	@Override
-	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String requestPro(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
 		
-		String book_kind = request.getParameter("book_kind");
-		int book_id = Integer.parseInt(request.getParameter("book_id"));
-		
-		//book_id 에 해당하는 book_title을 얻어냄
-		
-		MngrDBBean bookProcess = MngrDBBean.getInstance();
-		String book_title = bookProcess.getBookTitle(book_id);
-		
-		request.setAttribute("book_kind", book_kind);
-		request.setAttribute("book_id", new Integer(book_id));
-		request.setAttribute("book_title", book_title);
-		request.setAttribute("qora", new Integer(1));
-		request.setAttribute("type", new Integer(1));
-		
+		try{
+
+			request.setCharacterEncoding("UTF-8");
+			
+			String book_kind = request.getParameter("book_kind");
+			int book_id = Integer.parseInt(request.getParameter("book_id"));
+			
+			//book_id 에 해당하는 book_title을 얻어냄
+			
+			MngrDBBean bookProcess = MngrDBBean.getInstance();
+			String book_title = bookProcess.getBookTitle(book_id);
+			
+			request.setAttribute("book_kind", book_kind);
+			request.setAttribute("book_id", new Integer(book_id));
+			request.setAttribute("book_title", book_title);
+			request.setAttribute("qora", new Integer(1));
+			request.setAttribute("type", new Integer(1));
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 			
 		return "/qna/qna/Form.jsp";
 	}

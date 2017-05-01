@@ -26,11 +26,11 @@ public class CartDBBean {
 	private Connection getConnection() throws Exception {
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
-		DataSource ds = (DataSource) envCtx.lookup("jdbc/Oracle11g");
+		DataSource ds = (DataSource) envCtx.lookup("jdbc/jsptest");
 		return ds.getConnection();
 
 	}
-	//Àå¹Ù±¸´Ï ´ã±â ¸¦ Å¬¸¯ÇÏ¸é ¼öÇàµÇ´Â °ÍÀ¸·Î cart Å×ÀÌºí¿¡ »õ·Î¿î ·¹ÄÚµå¸¦ Ãß°¡
+	//ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ cart ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½Úµå¸¦ ï¿½ß°ï¿½
 	public void insertCart(CartDataBean cart)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -66,7 +66,7 @@ public class CartDBBean {
 		}
 	}
 
-	//id¿¡ ÇØ´çÇÏ´Â ·¹ÄÚµåÀÇ ¼ö¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå
+	//idï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public int getListCount(String id)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -102,7 +102,7 @@ public class CartDBBean {
 		return x;
 	}
 	
-	//id¿¡ ÇØ´çÇÏ´Â ·¹ÄÚµåÀÇ ¸ñ·ÏÀ» ¾ò¾î³»´Â ¸Þ¼Òµå
+	//idï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public List<CartDataBean> getCart(String id,int count)throws Exception{
 		
 		
@@ -156,7 +156,7 @@ public class CartDBBean {
 		return lists;
 	}
 	
-	//Àå¹Ù±¸´Ï¿¡¼­ ¼ö·® ¼öÁ¤ ½Ã ½ÇÇàµÇ´Â ¸Þ¼Òµå
+	//ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Þ¼Òµï¿½
 	public void updateCount(int cart_id, int count)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -186,7 +186,7 @@ public class CartDBBean {
 	}
 	
 	
-	//Àå¹Ù±¸´Ï¿¡¼­ cart_id¿¡ ´ëÇÑ ·¹ÄÚµå¸¦ »èÁ¦ÇÏ´Â ¸Þ¼Òµå
+	//ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ cart_idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	public void deleteList(int cart_id)throws Exception{
 		
 		Connection conn = null;
@@ -215,7 +215,7 @@ public class CartDBBean {
 		}
 	}
 	
-	//id¿¡ ÇØ´çÇÏ´Â ¸ðµç ·¹ÄÚµå¸¦ »èÁ¦ÇÏ´Â ¸Þ¼Òµå·Î [Àå¹Ù±¸´Ï ºñ¿ì±â] ¹öÆ°À» Å¬¸¯ ½Ã ½ÇÇàµÈ´Ù.
+	//idï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½ï¿½ [ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½] ï¿½ï¿½Æ°ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 	public void deleteAll(String id)throws Exception{
 		Connection conn = null ;
 		PreparedStatement pstmt = null;

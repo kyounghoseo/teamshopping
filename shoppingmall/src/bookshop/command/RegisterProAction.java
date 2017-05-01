@@ -12,8 +12,9 @@ import bookshop.process.CommandAction;
 public class RegisterProAction implements CommandAction {
 
 	@Override
-	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String requestPro(HttpServletRequest request, HttpServletResponse response){
 		// TODO Auto-generated method stub
+		try{
 		request.setCharacterEncoding("UTF-8");
 		
 		//회원 가입 정보
@@ -28,6 +29,10 @@ public class RegisterProAction implements CommandAction {
 		//회원 가입 처리
 		LogonDBBean dbPro = LogonDBBean.getInstance();
 		dbPro.insertMember(member);
-		return "/member/regiterPro.jsp";
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return "/member/registerPro.jsp";
 	}
 }

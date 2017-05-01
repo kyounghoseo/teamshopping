@@ -208,7 +208,7 @@ public class LogonDBBean {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			int x = -1;
-
+			System.out.println("맴버 업데이트 안들어오나??");
 			SHA256 sha = SHA256.getInsatnce();
 			try {
 				conn = getConnection();
@@ -217,19 +217,26 @@ public class LogonDBBean {
 				pstmt = conn.prepareStatement("select passwd from member where id = ?");
 				pstmt.setString(1, member.getId());
 				rs = pstmt.executeQuery();
-
+				System.out.println("1");
 				if (rs.next()) {// �빐�떦 �븘�씠�뵒媛� �엳�쑝硫� �닔�뻾
+					System.out.println("2");
 					String dbpasswd = rs.getString("passwd");
 					if (BCrypt.checkpw(shaPass, dbpasswd)) {
-						pstmt = conn.prepareStatement("update member set name=?, address=?, tel=?" + "where id=?");
+						System.out.println("3");
+						pstmt = conn.prepareStatement("update member set name=?, address=?, tel=? where id=?");
 						pstmt.setString(1, member.getName());
 						pstmt.setString(2, member.getAddress());
 						pstmt.setString(3, member.getTel());
 						pstmt.setString(4, member.getId());
 						pstmt.executeUpdate();
 						x = 1;// �쉶�썝 �젙蹂� �닔�젙 泥섎━ �꽦怨�
-					} else
-						x = 0;// �쉶�썝 �젙蹂� �닔�젙 泥섎━ �떎�뙣
+						System.out.println("업데이트 성공" +x);
+					} else{
+						x = 0;// �쉶�썝 �젙蹂� �닔�젙 泥섎━ �떎�뙣11
+					System.out.println("업데이트 실패 " +x);
+					}
+				}else {
+					System.out.println("아이디도 못찾어?"+x);
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();

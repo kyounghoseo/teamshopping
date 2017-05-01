@@ -9,30 +9,36 @@ import bookshop.process.CommandAction;
 public class DeleteCartAction implements CommandAction {
 
 	@Override
-	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String requestPro(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		
+		try{
 
-		request.setCharacterEncoding("UTF-8");
+			request.setCharacterEncoding("UTF-8");
 
-		String list = request.getParameter("list");
-		String msg = "";
+			String list = request.getParameter("list");
+			String msg = "";
 
-		CartDBBean bookProcess = CartDBBean.getInstance();
+			CartDBBean bookProcess = CartDBBean.getInstance();
 
-		if (list.equals("all")) { // list °ªÀÌ allÀÌ¸é ¼öÇà
-			// ÇØ´ç buyerÀÇ Àå¹Ù±¸´Ï ¸ñ·ÏÀ» ¸ðµÎ »èÁ¦
-			String buyer = request.getParameter("buyer");
-			bookProcess.deleteAll(buyer);
-			msg = "Àå¹Ù±¸´Ï°¡ ¸ðµÎ ºñ¿öÁ³½À´Ï´Ù.";
+			if (list.equals("all")) { // list ï¿½ï¿½ï¿½ï¿½ allï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+				// ï¿½Ø´ï¿½ buyerï¿½ï¿½ ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				String buyer = request.getParameter("buyer");
+				bookProcess.deleteAll(buyer);
+				msg = "ï¿½ï¿½Ù±ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 
-		} else { // list°ªÀÌ allÀÌ¿Ü (cart_id)ÀÇ °ªÀÌ¸é ¼öÇà
-					// list°ª¿¡ ÇØ´çÇÏ´Â ·¹ÄÚµå »èÁ¦
-			bookProcess.deleteList(Integer.parseInt(list));
-			msg = "ÁöÁ¤ÇÑ Ç×¸ñÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.";
+			} else { // listï¿½ï¿½ï¿½ï¿½ allï¿½Ì¿ï¿½ (cart_id)ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+						// listï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
+				bookProcess.deleteList(Integer.parseInt(list));
+				msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
+			}
+
+			request.setAttribute("msg", msg);
+			request.setAttribute("type", new Integer(1));
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
-
-		request.setAttribute("msg", msg);
-		request.setAttribute("type", new Integer(1));
 		return "cart/deleteCart.jsp";
 
 	}

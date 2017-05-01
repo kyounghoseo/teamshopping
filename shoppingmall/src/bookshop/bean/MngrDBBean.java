@@ -43,7 +43,7 @@ public class MngrDBBean {//관리자 인증, 상품관리, 구매관리 부분�
 		SHA256 sha = SHA256.getInsatnce();
 		try {
 			conn = getConnection();
-
+			System.out.println("매니저 아이디 체크"+id);
 			String orgPass = passwd;
 			String shaPass = sha.getSha256(orgPass.getBytes());
 
@@ -54,10 +54,13 @@ public class MngrDBBean {//관리자 인증, 상품관리, 구매관리 부분�
 
 			if (rs.next()) {// 해당 아이디가 있으면 수행
 				String dbpasswd = rs.getString("managerPasswd");
-				if(BCrypt.checkpw(shaPass, dbpasswd))
+				if(BCrypt.checkpw(shaPass, dbpasswd)){
 					x = 1; // 인증 성공
-				else
+				System.out.println("매니저 로그인 패스워드 인증 성공");}
+				else{
 					x = 0; // 비밀번호 틀림
+					System.out.println("매니저 로그인 패스워드 인증 실퍂");	
+				}
 			} else // 해당 아이디 없으면 수행
 				x = -1; // 아이디 없음
 
@@ -110,7 +113,7 @@ public class MngrDBBean {//관리자 인증, 상품관리, 구매관리 부분�
 			pstmt.setTimestamp(11, book.getReg_date());
 
 			pstmt.executeUpdate();
-
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -290,7 +293,7 @@ public class MngrDBBean {//관리자 인증, 상품관리, 구매관리 부분�
 	}// å�� ������ �� ��
 
 	// �з��� �Ǵ� ��ü ��ϵ� å�� ������ ���� �޼ҵ�
-	public List<MngrDataBean> getBooks(String book_kind) throws Exception {
+	public List<MngrDataBean> getBooks(String book_kind) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -364,7 +367,6 @@ public class MngrDBBean {//관리자 인증, 상품관리, 구매관리 부분�
 		ResultSet rs = null;
 		MngrDataBean bookList[] = null;
 		int i = 0;
-
 		try {
 			conn = getConnection();
 

@@ -66,7 +66,7 @@ ${book.getBook_count()}
 					<td width="50"><fmt:formatDate pattern="yyyy-MM-dd"
 							value="${book.getReg_date()}" /></td>
 					<td width="50">
-						<button id="eidt"
+						<button id="edit"
 							name="${book.getBook_id()},${book.getBook_kind()}"
 							onclick="edit(this)">수정</button>
 					</td>

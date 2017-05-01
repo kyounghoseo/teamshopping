@@ -27,11 +27,11 @@ public class BuyDBBean {
 	private Connection getConnection() throws Exception {
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
-		DataSource ds = (DataSource) envCtx.lookup("jdbc/Oracle11g");
+		DataSource ds = (DataSource) envCtx.lookup("jdbc/jsptest");
 		return ds.getConnection();
 	}
 
-	// bank Å×ÀÌºí¿¡ ÀÖ´Â ÀüÃ¼ ·¹ÄÚµå¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå
+	// bank ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Úµå¸¦ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public List<String> getAccount() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -69,7 +69,7 @@ public class BuyDBBean {
 		return accountList;
 	}
 
-	// ±¸¸Å Å×ÀÌºíÀÎ buy¿¡ ±¸¸Å ¸ñ·Ï µî·Ï
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ buyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	@SuppressWarnings("resource")
 	public void insertBuy(List<CartDataBean> lists, String id, String account, String deliveryName, String deliveryTel,
 			String deliveryAddress) throws Exception {
@@ -112,10 +112,10 @@ public class BuyDBBean {
 				buyId = Long.parseLong(compareDate);
 			}
 
-			// ÇÏ³ªÀÇ Æ®·¢Àè¼ÇÀ¸·Î Ã³¸®
+			// ï¿½Ï³ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 			conn.setAutoCommit(false);
 			for (int i = 0; i < lists.size(); i++) {
-				// ÇØ´ç ¾ÆÀÌµð¿¡ ´ëÇÑ cart Å×ÀÌºíÀÇ ·¹ÄÚµå¸¦ °¡Á®¿Â ÈÄ buy Å×ÀÌºí¿¡ Ãß°¡
+				// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ cart ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ buy ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ß°ï¿½
 				CartDataBean cart = lists.get(i);
 
 				sql = "insert into buy(buy_id,buyer,book_id,book_title,buy_price,buy_count,book_image,"
@@ -137,7 +137,7 @@ public class BuyDBBean {
 				pstmt.setString(12, deliveryAddress);
 				pstmt.executeUpdate();
 
-				// »óÇ°ÀÌ ±¸¸ÅµÇ¾úÀ¸¹Ç·Î book Å×ÀÌºíÀÇ »óÇ° ¼ö·®À» ÀçÁ¶Á¤ÇÔ
+				// ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ÅµÇ¾ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ book ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				pstmt = conn.prepareStatement("select book_count from book where book_id=?");
 				pstmt.setInt(1, cart.getBook_id());
 				rs = pstmt.executeQuery();
@@ -178,7 +178,7 @@ public class BuyDBBean {
 
 	}
 
-	// id¿¡ ÇØ´çÇÏ´Â buyÅ×ÀÌºíÀÇ ·¹ÄÚµå ¼ö¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå
+	// idï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ buyï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public int getListCount(String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -216,7 +216,7 @@ public class BuyDBBean {
 		return x;
 	}
 
-	// buyÅ×ÀÌºíÀÇ ÀüÃ¼ ·¹ÄÚµå ¼ö¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå
+	// buyï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public int getListCount() throws Exception {
 
 		Connection conn = null;
@@ -255,7 +255,7 @@ public class BuyDBBean {
 
 	}
 
-	// id¿¡ ÇØ´çÇÏ´Â buy Å×ÀÌºíÀÇ ±¸¸Å¸ñ·ÏÀ» ¾ò¾î³»´Â ¸Þ¼Òµå
+	// idï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ buy ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public List<BuyDataBean> getBuyList(String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -308,7 +308,7 @@ public class BuyDBBean {
 		return lists;
 	}
 
-	// buy Å×ÀÌºíÀÇ ÀüÃ¼ ¸ñ·ÏÀ» ¾ò¾î³»´Â ¸Þ¼Òµå
+	// buy ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public List<BuyDataBean> getBuyList() throws Exception{
 		
 		Connection conn = null;

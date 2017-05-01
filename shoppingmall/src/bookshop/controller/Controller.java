@@ -28,12 +28,13 @@ import bookshop.process.CommandAction;
 @WebServlet(
 		urlPatterns = { 
 				"/Controller",
-				" *.do"
+				"*.do"
 				}, 
 		initParams = {
 		@WebInitParam(name = "propertyConfig", value = "commandMapping.properties") 
 		})
 public class Controller extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	// 명령어와 명령어 처리 클래스를 쌍으로 저장
 	private Map<String, Object> commandMap = new HashMap<String, Object>();
@@ -52,9 +53,10 @@ public class Controller extends HttpServlet {
 	
 	// 명령어와 처리 클래스가 매핑되어 있는 properties 파일을 읽어서
 	// HashMap 객체인 commandMap에 저장
-	public void init(ServletConfig config) throws ServletException {
+	public void init(ServletConfig config)  {
 		// TODO Auto-generated method stub
-
+		
+		System.out.println("controller" +config+"ㅇㅇㅇ?");
 		// initParams에서 propertyConfig의 값을 읽어옴
 		String props = config.getInitParameter("propertyConfig");
 		String realFolder = "/property"; // properties 파일이 저장된 폴더
@@ -104,9 +106,15 @@ public class Controller extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			 {
 		// TODO Auto-generated method stub
-		requestPro(request, response); // 요청 처리 메소드 호출
+		
+		try{
+			requestPro(request, response); // 요청 처리 메소드 호출
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -114,20 +122,26 @@ public class Controller extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			{
 		// TODO Auto-generated method stub
-		requestPro(request, response); // 요청 처리 메소드 호출
+		try{
+			requestPro(request, response); // 요청 처리 메소드 호출
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}// doPost끝
 
 	// 웹 브라우저의 요청을 분석하고, 해당 로직의 처리를 할 모델 실행 및
 	// 처리 결과를 뷰에 보냄
 	private void requestPro(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			{
 
 		String view = null;
 		CommandAction com = null;
 		try {
 			String command = request.getRequestURI();
+			System.out.println(command +"리퀘스트 프로");
 			if (command.indexOf(request.getContextPath()) == 0)
 				command = command.substring(request.getContextPath().length());
 			com = (CommandAction)commandMap.get(command);
@@ -138,6 +152,12 @@ public class Controller extends HttpServlet {
 		}
 		request.setAttribute("cont", view);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-		dispatcher.forward(request, response);
+		try{
+
+			dispatcher.forward(request, response);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 }

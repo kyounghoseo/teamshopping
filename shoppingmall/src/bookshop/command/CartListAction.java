@@ -12,26 +12,33 @@ import bookshop.process.CommandAction;
 public class CartListAction implements CommandAction {
 
 	@Override
-	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String requestPro(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
 		
-		String buyer = request.getParameter("buyer");
-		
-		List<CartDataBean> cartLists = null;
-		int count = 0;
-		
-		//ÇØ´ç buyerÀÇ Àå¹Ù±¸´Ï ¸ñ·ÏÀÇ ¼ö¸¦ ¾ò¾î³¿
-		CartDBBean bookProcess = CartDBBean.getInstance();
-		count = bookProcess.getListCount(buyer);
-		
-		//ÇØ´ç buyerÀÇ Àå¹Ù±¸´Ï ¸ñ·ÏÀÌ ÀÖÀ¸¸é ¼öÇà
-		if(count >0){
-			cartLists = bookProcess.getCart(buyer, count);
-			request.setAttribute("cartLists", cartLists);
+		try{
+
+			request.setCharacterEncoding("UTF-8");
+			
+			String buyer = request.getParameter("buyer");
+			
+			List<CartDataBean> cartLists = null;
+			int count = 0;
+			
+			//ï¿½Ø´ï¿½ buyerï¿½ï¿½ ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³¿
+			CartDBBean bookProcess = CartDBBean.getInstance();
+			count = bookProcess.getListCount(buyer);
+			
+			//ï¿½Ø´ï¿½ buyerï¿½ï¿½ ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			if(count >0){
+				cartLists = bookProcess.getCart(buyer, count);
+				request.setAttribute("cartLists", cartLists);
+			}
+			request.setAttribute("count", new Integer(count));
+			request.setAttribute("type", new Integer(1));
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
-		request.setAttribute("count", new Integer(count));
-		request.setAttribute("type", new Integer(1));
 		
 		
 		return "/cart/cartList.jsp";

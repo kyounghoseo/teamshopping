@@ -8,7 +8,7 @@ import bookshop.process.CommandAction;
 public class LoginFormAction implements CommandAction{
 
 	@Override
-	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String requestPro(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 	
 		request.setAttribute("type", new Integer(1));

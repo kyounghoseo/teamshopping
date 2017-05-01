@@ -9,18 +9,23 @@ import bookshop.process.CommandAction;
 public class CartUpdateProAction implements CommandAction {
 
 	@Override
-	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String requestPro(HttpServletRequest request, HttpServletResponse response){
 		// TODO Auto-generated method stub
+		try{
 
-		request.setCharacterEncoding("UTF-8");
-		int cart_id = Integer.parseInt(request.getParameter("cart_id"));
-		int buy_count = Integer.parseInt(request.getParameter("buy_count"));
+			request.setCharacterEncoding("UTF-8");
+			int cart_id = Integer.parseInt(request.getParameter("cart_id"));
+			int buy_count = Integer.parseInt(request.getParameter("buy_count"));
 
-		// cart_id¿¡ ÇØ´çÇÏ´Â buy_countÀÇ °ªÀ» ¼öÁ¤
-		CartDBBean bookProcess = CartDBBean.getInstance();
-		bookProcess.updateCount(cart_id, buy_count);
+			// cart_idï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ buy_countï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			CartDBBean bookProcess = CartDBBean.getInstance();
+			bookProcess.updateCount(cart_id, buy_count);
 
-		request.setAttribute("type", new Integer(1));
+			request.setAttribute("type", new Integer(1));
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
 		return "/cart/cartUpdatePro.jsp";
 	}

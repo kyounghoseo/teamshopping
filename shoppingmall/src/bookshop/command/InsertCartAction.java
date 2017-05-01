@@ -10,31 +10,36 @@ import bookshop.process.CommandAction;
 public class InsertCartAction implements CommandAction{
 
 	@Override
-	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String requestPro(HttpServletRequest request, HttpServletResponse response)  {
 		// TODO Auto-generated method stub
-		
-		request.setCharacterEncoding("UTF-8");
-		
-		//Àå¹Ù±¸´Ï¿¡ Ãß°¡ÇÒ Á¤º¸¸¦ ÆÄ¶ó¹ÌÅÍ¿¡¼­ ¹Þ¾Æ³¿
-		int buy_count = Integer.parseInt(request.getParameter("buy_count"));
-		int book_id = Integer.parseInt(request.getParameter("book_id"));
-		String book_title = request.getParameter("book_title");
-		String book_image = request.getParameter("book_image");
-		int buy_price = (int)Float.parseFloat(request.getParameter("buy_price"));
-		String buyer = request.getParameter("buyer");
-		
-		//Àå¹Ù±¸´Ï¿¡ Ãß°¡ÇÏ±â À§ÇÑ Á¤º¹ ±¸¼º
-		CartDataBean cart = new CartDataBean();
-		cart.setBook_id(book_id);
-		cart.setBook_image(book_image);
-		cart.setBook_title(book_title);
-		cart.setBuy_count(buy_count);
-		cart.setBuy_price(buy_price);
-		cart.setBuyer(buyer);
-		
-		//Àå¹Ù±¸´Ï¿¡ Ãß°¡
-		CartDBBean bookProcess = CartDBBean.getInstance();
-		bookProcess.insertCart(cart);
+		try{
+
+			request.setCharacterEncoding("UTF-8");
+			
+			//ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½Þ¾Æ³ï¿½
+			int buy_count = Integer.parseInt(request.getParameter("buy_count"));
+			int book_id = Integer.parseInt(request.getParameter("book_id"));
+			String book_title = request.getParameter("book_title");
+			String book_image = request.getParameter("book_image");
+			int buy_price = (int)Float.parseFloat(request.getParameter("buy_price"));
+			String buyer = request.getParameter("buyer");
+			
+			//ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ß°ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			CartDataBean cart = new CartDataBean();
+			cart.setBook_id(book_id);
+			cart.setBook_image(book_image);
+			cart.setBook_title(book_title);
+			cart.setBuy_count(buy_count);
+			cart.setBuy_price(buy_price);
+			cart.setBuyer(buyer);
+			
+			//ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ß°ï¿½
+			CartDBBean bookProcess = CartDBBean.getInstance();
+			bookProcess.insertCart(cart);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		
 		
 		return "/cart/insertCart.jsp";
