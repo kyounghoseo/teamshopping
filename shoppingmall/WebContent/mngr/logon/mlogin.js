@@ -11,9 +11,9 @@ $(document).ready(function() {
 			url : "/shoppingmall/mg/managerLoginPro.do",
 			data : query,
 			success : function(data) {
-				window.location.href("/shoppingmall/mg/managerMain.do");
+				window.location.href ="/shoppingmall/mg/managerMain.do";
 			}
-
+		
 		});// ajax끝
 
 	});// [로그인]버튼 끝
@@ -24,9 +24,9 @@ $(document).ready(function() {
 			type : "POST",
 			url : "/shoppingmall/mg/managerLogout.do",
 			success : function(data) {
-				window.location.href("/shoppingmall/mg/managerMain.do");
+				window.location.href ="/shoppingmall/mg/managerMain.do";
 			}
-
+		
 		});// ajax끝
 
 	});// [로그아웃] 버튼 끝
